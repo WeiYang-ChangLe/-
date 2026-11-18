@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f3ed">
+    <title>Word Garden · 英语词汇练习</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="app">
+      <header class="site-header">
+        <a class="brand" href="#" aria-label="Word Garden 首页">
+          <span class="brand-icon" aria-hidden="true">W</span>
+          <span>WORD <b>GARDEN</b></span>
+        </a>
+        <span class="header-note">English, one word at a time</span>
+      </header>
+
+      <section class="welcome" aria-labelledby="page-title">
+        <p class="eyebrow">MY ENGLISH NOTEBOOK</p>
+        <h1 id="page-title">词汇小花园</h1>
+        <p>搜索、点击、标记掌握，让每个单词都变得熟悉。</p>
+      </section>
+
+      <nav class="tabs" role="tablist" aria-label="词汇练习功能">
+        <button class="tab is-active" id="tab-search" type="button" role="tab" aria-selected="true" aria-controls="panel-search">
+          <span class="tab-number">01</span> 单词搜索
+        </button>
+        <button class="tab" id="tab-gloss" type="button" role="tab" aria-selected="false" aria-controls="panel-gloss" tabindex="-1">
+          <span class="tab-number">02</span> 点击释义
+        </button>
+        <button class="tab" id="tab-known" type="button" role="tab" aria-selected="false" aria-controls="panel-known" tabindex="-1">
+          <span class="tab-number">03</span> 生词高亮
+        </button>
+        <button class="tab" id="tab-curve" type="button" role="tab" aria-selected="false" aria-controls="panel-curve" tabindex="-1">
+          <span class="tab-number">04</span> 复习曲线
+        </button>
+      </nav>
+
+      <section class="panel is-active" id="panel-search" role="tabpanel" aria-labelledby="tab-search">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">FIND A WORD</p>
+            <h2>单词搜索</h2>
+          </div>
+          <span class="panel-icon" aria-hidden="true">⌕</span>
+        </div>
+        <p class="panel-description">输入几个英文字母，列表会留下拼写中包含它们的单词。</p>
+        <label class="search-box">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="word-search" type="search" placeholder="试试输入 book、play、light…" autocomplete="off" spellcheck="false">
+          <span class="search-hint">大小写不敏感</span>
+        </label>
+        <div class="list-summary">
+          <span>单词列表</span>
+          <span id="word-count" aria-live="polite"></span>
+        </div>
+        <ul class="word-list" id="word-list" aria-live="polite"></ul>
+        <p class="no-results" id="no-results" hidden>没有找到包含这些字母的单词，试试别的拼写吧。</p>
+      </section>
+
+      <section class="panel" id="panel-gloss" role="tabpanel" aria-labelledby="tab-gloss" hidden>
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">TAP TO DISCOVER</p>
+            <h2>点击释义</h2>
+          </div>
+          <span class="panel-icon" aria-hidden="true">Aa</span>
+        </div>
+        <p class="panel-description">点文章中的单词查看释义；再点同一个词或文章空白处即可收起。</p>
+        <div class="reading-layout">
+          <article class="passage click-passage" id="click-passage" aria-label="英文短文">
+            <p class="passage-label">A SMALL MOMENT</p>
+            <div class="passage-text" id="click-text"></div>
+          </article>
+          <aside class="gloss-card" aria-live="polite">
+            <span class="gloss-label">WORD GLOSS</span>
+            <p class="gloss-word" id="click-gloss-word">点一个单词</p>
+            <p class="gloss-meaning" id="click-gloss-meaning">中文释义会显示在这里。</p>
+            <span class="gloss-decoration" aria-hidden="true">✳</span>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-known" role="tabpanel" aria-labelledby="tab-known" hidden>
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">GROW YOUR VOCABULARY</p>
+            <h2>生词高亮</h2>
+          </div>
+          <span class="panel-icon" aria-hidden="true">✳</span>
+        </div>
+        <p class="panel-description">点一下高亮单词，就把它标记为已掌握。你的进度会保存在这台设备上。</p>
+        <div class="legend"><span class="legend-swatch" aria-hidden="true"></span> 还没掌握</div>
+        <div class="reading-layout">
+          <article class="passage known-passage" id="known-passage" aria-label="英文短文，点击单词标记为已掌握">
+            <p class="passage-label">THE LITTLE GARDEN</p>
+            <div class="passage-text" id="known-text"></div>
+          </article>
+          <aside class="gloss-card known-gloss" aria-live="polite">
+            <span class="gloss-label">YOUR PROGRESS</span>
+            <p class="gloss-word" id="known-gloss-word">点亮一个新单词</p>
+            <p class="gloss-meaning" id="known-gloss-meaning">点击高亮词查看释义，并将它加入已掌握词汇。</p>
+            <span class="known-count"><span id="known-count">0</span> 个词已掌握</span>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-curve" role="tabpanel" aria-labelledby="tab-curve" hidden>
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">ONE CARD · REVIEW HISTORY</p>
+            <h2>记忆保持曲线</h2>
+          </div>
+          <span class="panel-icon" aria-hidden="true">⌁</span>
+        </div>
+        <p class="panel-description">只看这一张卡的复习记录。复习后记忆回到高处，间隔越久，曲线中间下降越多。</p>
+
+        <article class="review-card" aria-label="本次复习的中英卡片">
+          <span class="review-card-label">TODAY'S CARD</span>
+          <div class="review-card-content">
+            <span class="review-english">remember</span>
+            <span class="review-divider" aria-hidden="true"></span>
+            <span class="review-chinese">记得；记住</span>
+          </div>
+          <button class="review-button" id="review-card-button" type="button">我复习过了 <span aria-hidden="true">↗</span></button>
+        </article>
+
+        <section class="curve-section" aria-labelledby="curve-title">
+          <div class="curve-heading">
+            <div>
+              <p class="eyebrow">RETENTION OVER TIME</p>
+              <h3 id="curve-title">这张卡的记忆保持率</h3>
+            </div>
+            <span class="curve-equation">e<sup>−天数 / 稳定度</sup></span>
+          </div>
+          <p class="review-empty" id="review-empty" role="status">这张卡还没有复习记录。复习后，记忆保持率曲线会显示在这里。</p>
+          <div class="curve-chart-wrap" id="curve-chart-wrap" hidden>
+            <svg class="curve-chart" id="retention-chart" viewBox="0 0 720 270" role="img" aria-labelledby="curve-svg-title curve-svg-description" hidden>
+              <title id="curve-svg-title">记得这张卡的记忆保持率曲线</title>
+              <desc id="curve-svg-description">根据每次复习时间和复习间隔绘制的记忆保持率曲线。</desc>
+            </svg>
+          </div>
+          <p class="curve-note" id="curve-note" hidden>每个圆点代表一次复习；首次稳定度按 1 天计，之后按距上次复习的完整天数计算 interval。保持率 = e<sup>−经过天数 / 稳定度</sup>。</p>
+        </section>
+      </section>
+
+      <footer class="site-footer">
+        <span>一点点积累，也会开出漂亮的花。</span>
+        <img class="footer-mark" src="assets/flower.svg" alt="">
+      </footer>
+    </main>
+  </body>
+</html>
